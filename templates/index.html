@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {#    <link rel="stylesheet" href="/templates/style.css">#}
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    {#    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">#}
+    <meta charset="UTF-8">
+    <title>AVNRT vs. AVRT</title>
+
+</head>
+<body>
+
+<div class="background">
+    <div class="container">
+        <div class="screen">
+            <div class="screen-header">
+                <div class="screen-header-left">
+                    <div class="screen-header-button close"></div>
+                    <div class="screen-header-button maximize"></div>
+                    <div class="screen-header-button minimize"></div>
+                </div>
+                <div class="screen-header-right">
+                    <div class="screen-header-ellipsis"></div>
+                    <div class="screen-header-ellipsis"></div>
+                    <div class="screen-header-ellipsis"></div>
+                </div>
+            </div>
+            <div class="screen-body">
+                <div class="screen-body-item">
+                    <div class="app-title">
+                        <span>Prob of AVNRT vs. AVRT</span>
+                        <span>?</span>
+                    </div>
+                    <div class="app-form">
+                        <form action="calculateProbability">
+                            <!-- Edad: edad actual -->
+                            <div class="app-form-group">
+                                <p class="app-form-title">MODEL VARIABLES</p>
+                            </div>
+                            <div class="app-form-group">
+                                <p class="app-form-var">Current Age</p>
+                                <input class="app-form-control" type="number" id="var_Edad" name="Edad" step="1" min=0
+                                       max=110 required value={{ Edad }}>
+                            </div>
+                            <!-- Edadini: edad al inicio de los síntomas -->
+                            <div class="app-form-group">
+                                <p class="app-form-var">Age at the beginning of the symptoms</p>
+                                <input class="app-form-control" type="number" id="var_Edadini" name="Edadini" step="1"
+                                       min=0 max=110 required value={{ Edadini }} >
+                            </div>
+                            <!-- Sexo: 0=male, 1= female -->
+                            <div class="app-form-group">
+                                <p class="app-form-var">Sex</p>
+                                <input type="radio" name="Sexo" value=0 {% if Sexo==0%} checked {% endif %} required>Male</input>
+                                <input type="radio" name="Sexo" value=1 {% if Sexo==1%} checked {% endif %} >Female</input>
+                            </div>
+                            <!-- Palp_cuello: palpitaciones en el cuello 0=No, 1=Yes -->
+                            <div class="app-form-group">
+                                <p class="app-form-var">Neck palpitations</p>
+                                <input type="radio" name="Palp_cuello" value=0 {% if Palp_cuello==0%} checked {% endif %} required>No</input>
+                                <input type="radio" name="Palp_cuello" value=1 {% if Palp_cuello==1%} checked {% endif %} required>Yes</input>
+                            </div>
+                            <!-- Pseudo S en inferiores/pseudoR en V1: 0=No, 1=Yes -->
+                            <div class="app-form-group">
+                                <p class="app-form-var">PseudoS inferior leads OR pseudoR V1</p>
+                                <input type="radio" name="RV1" value=0 {% if RV1==0%} checked {% endif %} required>No</input>
+                                <input type="radio" name="RV1" value=1 {% if RV1==1%} checked {% endif %} required>Yes</input>
+                            </div>
+                            <!-- P retrógrada: 0=No, 1=Yes -->
+                            <div class="app-form-group">
+                                <p class="app-form-var">Retrograde P wave (>80ms)</p>
+                                <input type="radio" name="Pretro" value=0 {% if Pretro==0%} checked {% endif %} required>No</input>
+                                <input type="radio" name="Pretro" value=1 {% if Pretro==1%} checked {% endif %} required>Yes</input>
+                            </div>
+                            <!-- QRS alternante: 0=No, 1=Yes -->
+                            <div class="app-form-group">
+                                <p class="app-form-var">QRS alternans</p>
+                                <input type="radio" name="QRSalt" value=0 {% if QRSalt==0%} checked {% endif %} required>No</input>
+                                <input type="radio" name="QRSalt" value=1 {% if QRSalt==1%} checked {% endif %} required>Yes</input>
+                            </div>
+
+                            <div class="app-form-group buttons">
+                                <button class="app-form-button">CALCULATE</button>
+                                <button class="app-form-button">RESET</button>
+                            </div>
+                            <!-- RESULTS -->
+                            <div class="app-form-group">
+                                <p class="app-form-title">RESULTS</p>
+                            </div>
+                            <div class="app-form-group message">
+                                <p class="app-form-var">Probability of AVNRT</p>
+                                <p class="app-form-control"> {{ Prob_AVNRT }}
+                                <p class="app-form-var">Probability of AVRT</p>
+                                <p class="app-form-control"> {{ Prob_AVRT }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="app-contact">CONTACT INFO : p.avila@gmail.com</div>
+
+
+        </div>
+        <div class="credits">
+            Authors
+            <a class="credits-link" href="https://www.researchgate.net/profile/Pablo-Avila" target="_blank">
+                <svg class="dribbble" viewBox="0 0 200 200">
+                    <g stroke="#ffffff" fill="none">
+                        {#                <circle cx="100" cy="100" r="90" stroke-width="20"></circle>#}
+                        {#                <path d="M62.737004,13.7923523 C105.08055,51.0454853 135.018754,126.906957 141.768278,182.963345" stroke-width="20"></path>#}
+                        {#                <path d="M10.3787186,87.7261455 C41.7092324,90.9577894 125.850356,86.5317271 163.474536,38.7920951" stroke-width="20"></path>#}
+                        {#                <path d="M41.3611549,163.928627 C62.9207607,117.659048 137.020642,86.7137169 189.041451,107.858103" stroke-width="20"></path>#}
+                    </g>
+                </svg>
+                P. Ávila
+            </a>
+            <a class="credits-link" href="https://www.researchgate.net/profile/Gonzalo-Rios-Munoz" target="_blank">
+                <svg class="dribbble" viewBox="0 0 200 200">
+                    <g stroke="#ffffff" fill="none">
+                        {#                <circle cx="100" cy="100" r="90" stroke-width="20"></circle>#}
+                        {#                <path d="M62.737004,13.7923523 C105.08055,51.0454853 135.018754,126.906957 141.768278,182.963345" stroke-width="20"></path>#}
+                        {#                <path d="M10.3787186,87.7261455 C41.7092324,90.9577894 125.850356,86.5317271 163.474536,38.7920951" stroke-width="20"></path>#}
+                        {#                <path d="M41.3611549,163.928627 C62.9207607,117.659048 137.020642,86.7137169 189.041451,107.858103" stroke-width="20"></path>#}
+                    </g>
+                </svg>
+                G. R. Ríos-Muñoz
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
