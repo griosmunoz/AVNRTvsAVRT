@@ -7,7 +7,6 @@ app = Flask(__name__)
 def home():
    return render_template("index.html")
 
-
 @app.route('/calculateProbability')
 def calculateProbability():
     Edad = float(request.args['Edad'])
@@ -17,35 +16,8 @@ def calculateProbability():
     RV1 = float(request.args['RV1'])
     Pretro = float(request.args['Pretro'])
 
-    # aux_print = 'INPUT VARIABLES'
-    # print(aux_print)
-    # aux_print = '- Edad: ' + str(Edad)
-    # print(aux_print)
-    # aux_print = '- Edadini: ' + str(Edadini)
-    # print(aux_print)
-    # aux_print = '- Sexo: ' + str(Sexo)
-    # print(aux_print)
-    # aux_print = '- Palp_cuello: ' + str(Palp_cuello)
-    # print(aux_print)
-    # aux_print = '- RV1: ' + str(RV1)
-    # print(aux_print)
-    # aux_print = '- Pretro: ' + str(Pretro)
-    # print(aux_print)
-
-    # Calculate AVNRT vs AVRT Probabilities
-    # Old Model
-    # Prob_AVNRT, Prob_AVRT = calculateAVNRTvsAVRT(Edad=Edad, Edadini=Edadini, Sexo=Sexo, Palp_cuello=Palp_cuello, RV1=RV1, Pretro=Pretro, QRSalt=QRSalt, verbose=False)
-
     Prob_AVNRT, Prob_AVRT, clinic_model = calculateAVNRTvsAVRT(Edad=Edad, Edadini=Edadini, Sexo=Sexo, Palp_cuello=Palp_cuello,
                                                  RV1=RV1, Pretro=Pretro, verbose=True)
-
-
-    # aux_print = 'RESULTS'
-    # print(aux_print)
-    # aux_print = '- Prob. AVNRT: ' + str(Prob_AVNRT)
-    # print(aux_print)
-    # aux_print = '- Prob. AVRT: ' + str(Prob_AVRT)
-    # print(aux_print)
 
     Prob_AVNRT = '{:.2f}'.format(Prob_AVNRT)
     Prob_AVRT = '{:.2f}'.format(Prob_AVRT)

@@ -5,7 +5,7 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     {#    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">#}
     <meta charset="UTF-8">
-    <title>AVNRT vs AVRT calculator</title>
+    <title>AVNRT vs. AVRT</title>
 
 </head>
 <body>
@@ -79,7 +79,7 @@
 
                             <div class="app-form-group buttons">
                                 <button class="app-form-button">CALCULATE</button>
-                                <button class="app-form-button">RESET</button>
+
                             </div>
                             <!-- RESULTS -->
                             <div class="app-form-group">
@@ -92,15 +92,16 @@
                                 <p class="app-form-control"> {{ Prob_AVRT }}
                             </div>
                         </form>
+                        <div class="app-form-group buttons">
+                            <button class="app-form-button" onclick="window.location='https://avnrt-vs-avrt.herokuapp.com/'">RESET</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-
             <div class="app-contact">
                 CONTACT INFO: <a href="mailto:p.avila@gmail.com">p.avila@gmail.com</a>
             </div>
-
 
         </div>
         <div class="credits">
@@ -142,9 +143,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 </body>
 </html>
