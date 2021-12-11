@@ -16,7 +16,6 @@ def calculateProbability():
     Palp_cuello = float(request.args['Palp_cuello'])
     RV1 = float(request.args['RV1'])
     Pretro = float(request.args['Pretro'])
-    QRSalt = float(request.args['QRSalt'])
 
     # aux_print = 'INPUT VARIABLES'
     # print(aux_print)
@@ -31,8 +30,6 @@ def calculateProbability():
     # aux_print = '- RV1: ' + str(RV1)
     # print(aux_print)
     # aux_print = '- Pretro: ' + str(Pretro)
-    # print(aux_print)
-    # aux_print = '- QRSalt: ' + str(QRSalt)
     # print(aux_print)
 
     # Calculate AVNRT vs AVRT Probabilities
@@ -56,27 +53,7 @@ def calculateProbability():
     return render_template('index.html', Prob_AVNRT=Prob_AVNRT, Prob_AVRT=Prob_AVRT,
                            Edad=str(int(Edad)), Edadini=str(int(Edadini)),
                            Sexo=int(Sexo), Palp_cuello=int(Palp_cuello),
-                           RV1=int(RV1), Pretro=int(Pretro),
-                           QRSalt=int(QRSalt))
-
-# @app.route('/shortenurl')
-# def shortenurl():
-#
-#     print(request.args['shortcode'])
-#
-#     return render_template('index.html', shortcode=request.args['shortcode'])
-#
-# @app.route('/', methods=['POST'])
-# def my_form_post():
-#     text = request.form['text']
-#     processed_text = text.upper()
-#     return processed_text
-
-# about-page
-# @app.route("/about")
-# def about():
-#     return render_template("About.html")
-
+                           RV1=int(RV1), Pretro=int(Pretro))
 
 if __name__ == "__main__":
    app.run()
