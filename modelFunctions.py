@@ -1,5 +1,72 @@
 import numpy as np
 
+def modelFunctionGlobal(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro):
+
+    # function(Edad=56, Palp_cuello="No", Sexo="Female", Edadini=40,
+    #          Pretro="No", RV1="No")
+    # {
+    #     -0.92167009
+    #     + 0.003310067 * Edad
+    #     + 1.5677935e-06 * pmax(Edad - 27, 0) ^ 3
+    #     - 3.6344303e-06 * pmax(Edad - 56, 0) ^ 3
+    #     + 2.0666368e-06 * pmax(Edad - 78, 0) ^ 3
+    #     + 1.3953093 * (Palp_cuello == "Yes")
+    #     + 0.45189063 * (Sexo == "Female")
+    #     + 0.038070991 * Edadini
+    #     - 2.5235519e-06 * pmax(Edadini - 14, 0) ^ 3
+    #     + 4.6461657e-06 * pmax(Edadini - 41, 0) ^ 3
+    #     - 2.1226138e-06 * pmax(Edadini - 73.1, 0) ^ 3
+    #     - 1.3506311 * (Pretro == "Yes")
+    #     + 2.4980727 * (RV1 == "Yes")
+    # }
+
+    model_function_result = -0.92167009\
+                            + 0.003310067 * Edad\
+                            + (1.5677935e-06 * np.power(np.max(Edad - 27, 0), 3))\
+                            - (3.6344303e-06 * np.power(np.max(Edad - 56, 0), 3))\
+                            + (2.0666368e-06 * np.power(np.max(Edad - 78, 0), 3))\
+                            + (1.3953093 * Palp_cuello)\
+                            + (0.45189063 * Sexo)\
+                            + (0.038070991 * Edadini)\
+                            - (2.5235519e-06 * np.power(np.max(Edadini - 14, 0), 3))\
+                            + (4.6461657e-06 * np.power(np.max(Edadini - 41, 0), 3))\
+                            - (2.1226138e-06 * np.power(np.max(Edadini - 73.1, 0), 3))\
+                            - (1.3506311 * Pretro)\
+                            + (2.4980727 * RV1)
+
+    return model_function_result
+
+def modelFunctionClinic(Edad, Edadini, Sexo, Palp_cuello):
+
+    # function(Edad=56, Palp_cuello="No", Sexo="Female", Edadini=40)
+    # {
+    #     -1.4271779
+    #     + 0.0046822421 * Edad
+    #     - 1.2980809e-06 * pmax(Edad - 27, 0) ^ 3
+    #     + 3.0091875e-06 * pmax(Edad - 56, 0) ^ 3
+    #     - 1.7111066e-06 * pmax(Edad - 78, 0) ^ 3
+    #     + 1.5176917 * (Palp_cuello == "Yes")
+    #     + 0.58600511 * (Sexo == "Female")
+    #     + 0.043353257 * Edadini
+    #     - 1.8409627e-06 * pmax(Edadini - 14, 0) ^ 3
+    #     + 3.389436e-06 * pmax(Edadini - 41, 0) ^ 3
+    #     - 1.5484733e-06 * pmax(Edadini - 73.1, 0) ^ 3
+    # }
+
+    model_function_result = -1.4271779\
+                            + (0.0046822421 * Edad)\
+                            - (1.2980809e-06 * np.power(np.max(Edad - 27, 0), 3))\
+                            + (3.0091875e-06 * np.power(np.max(Edad - 56, 0), 3))\
+                            - (1.7111066e-06 * np.power(np.max(Edad - 78, 0), 3))\
+                            + (1.5176917 * Palp_cuello)\
+                            + (0.58600511 * Sexo)\
+                            + (0.043353257 * Edadini)\
+                            - (1.8409627e-06 * np.power(np.max(Edadini - 14, 0), 3))\
+                            + (3.389436e-06 * np.power(np.max(Edadini - 41, 0), 3))\
+                            - (1.5484733e-06 * np.power(np.max(Edadini - 73.1, 0), 3))
+
+    return model_function_result
+
 def modelFunction(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro, QRSalt):
 
     # ORIGINAL MODEL IN R
@@ -41,9 +108,28 @@ def modelFunction(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro, QRSalt):
 
     return model_function_result
 
-def calculateAVNRTvsAVRT(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro, QRSalt, verbose=False):
+def calculateAVNRTvsAVRT(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro, verbose=False):
 
-    model_function_result = modelFunction(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro, QRSalt)
+    # Old model
+    # model_function_result = modelFunction(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro, QRSalt)
+
+    clinic_model = 0
+
+    if RV1 == -1 or Pretro == -1:
+        # Clinic Model (No ECG)
+        model_function_result = modelFunctionClinic(Edad, Edadini, Sexo, Palp_cuello)
+        clinic_model = 1
+
+        if verbose:
+            aux_print = ' - CLINIC MODEL'
+            print(aux_print)
+    else:
+        # Global Model
+        model_function_result = modelFunctionGlobal(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro)
+
+        if verbose:
+            aux_print = ' - GLOBAL MODEL'
+            print(aux_print)
 
     if verbose:
         aux_print = ' - model_function_result: ' + str(model_function_result)
@@ -61,4 +147,4 @@ def calculateAVNRTvsAVRT(Edad, Edadini, Sexo, Palp_cuello, RV1, Pretro, QRSalt, 
     Prob_AVNRT = aux_prob
     Prob_AVRT = 1 - Prob_AVNRT
 
-    return Prob_AVNRT, Prob_AVRT
+    return Prob_AVNRT, Prob_AVRT, clinic_model

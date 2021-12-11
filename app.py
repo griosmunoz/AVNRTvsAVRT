@@ -36,7 +36,12 @@ def calculateProbability():
     # print(aux_print)
 
     # Calculate AVNRT vs AVRT Probabilities
-    Prob_AVNRT, Prob_AVRT = calculateAVNRTvsAVRT(Edad=Edad, Edadini=Edadini, Sexo=Sexo, Palp_cuello=Palp_cuello, RV1=RV1, Pretro=Pretro, QRSalt=QRSalt, verbose=False)
+    # Old Model
+    # Prob_AVNRT, Prob_AVRT = calculateAVNRTvsAVRT(Edad=Edad, Edadini=Edadini, Sexo=Sexo, Palp_cuello=Palp_cuello, RV1=RV1, Pretro=Pretro, QRSalt=QRSalt, verbose=False)
+
+    Prob_AVNRT, Prob_AVRT, clinic_model = calculateAVNRTvsAVRT(Edad=Edad, Edadini=Edadini, Sexo=Sexo, Palp_cuello=Palp_cuello,
+                                                 RV1=RV1, Pretro=Pretro, verbose=True)
+
 
     # aux_print = 'RESULTS'
     # print(aux_print)

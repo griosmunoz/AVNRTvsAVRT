@@ -28,8 +28,8 @@
             <div class="screen-body">
                 <div class="screen-body-item">
                     <div class="app-title">
-                        <span>Prob of AVNRT vs. AVRT</span>
-                        <span>?</span>
+                        <span>Calculator to predict supraventricular tachycardia mechanism based on simple clinical variables and the ECG</span>
+                        <span>AVNRT vs. AVRT</span>
                     </div>
                     <div class="app-form">
                         <form action="calculateProbability">
@@ -65,18 +65,14 @@
                                 <p class="app-form-var">PseudoS inferior leads OR pseudoR V1</p>
                                 <input type="radio" name="RV1" value=0 {% if RV1==0%} checked {% endif %} required>No</input>
                                 <input type="radio" name="RV1" value=1 {% if RV1==1%} checked {% endif %} required>Yes</input>
+                                <input type="radio" name="RV1" value=-1 {% if RV1==-1%} checked {% endif %} required>Not Available</input>
                             </div>
                             <!-- P retrógrada: 0=No, 1=Yes -->
                             <div class="app-form-group">
                                 <p class="app-form-var">Retrograde P wave (>80ms)</p>
                                 <input type="radio" name="Pretro" value=0 {% if Pretro==0%} checked {% endif %} required>No</input>
                                 <input type="radio" name="Pretro" value=1 {% if Pretro==1%} checked {% endif %} required>Yes</input>
-                            </div>
-                            <!-- QRS alternante: 0=No, 1=Yes -->
-                            <div class="app-form-group">
-                                <p class="app-form-var">QRS alternans</p>
-                                <input type="radio" name="QRSalt" value=0 {% if QRSalt==0%} checked {% endif %} required>No</input>
-                                <input type="radio" name="QRSalt" value=1 {% if QRSalt==1%} checked {% endif %} required>Yes</input>
+                                <input type="radio" name="Pretro" value=-1 {% if Pretro==-1%} checked {% endif %} required>Not Available</input>
                             </div>
 
                             <div class="app-form-group buttons">
